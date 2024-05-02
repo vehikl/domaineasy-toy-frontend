@@ -1,23 +1,16 @@
 "use client";
 
-import {useEffect, useState} from "react";
-import axios from "axios";
+import useWebsockets from "@/app/hooks/UseWebsockets";
 
 export default function SimpleMessage() {
-    const [message, setMessage] = useState("unset")
-    useEffect(() => {
-        try {
-            (async () => {
-                const response = await axios.get("http://localhost:3000/message")
-                setMessage(response.data);
+    const {messages: foobarMessages} = useWebsockets('foobar', 'buzzfizz');
 
-            })();
-        } catch (e) {
-
-        }
-
-
-    }, []);
-
-    return <>The message is: {message}</>;
+    return <>
+        <section>
+            <h1>All messages from Websocket are:</h1>
+            <ul>
+                {foobarMessages.map((text: string, index: number) => <li key={index}>{text}</li>)}
+            </ul>
+        </section>
+    </>;
 }
