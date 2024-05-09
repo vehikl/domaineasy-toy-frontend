@@ -2,7 +2,7 @@ import {useEffect, useState} from "react";
 import Pusher from "pusher-js";
 
 const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY ?? '', {
-    cluster: 'mt1'
+    cluster: process.env.NEXT_PUBLIC_PUSHER_CLUSTER ?? 'us2'
 });
 
 let subscriptions: string[] = [];
